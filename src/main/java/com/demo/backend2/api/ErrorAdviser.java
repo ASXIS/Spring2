@@ -1,4 +1,4 @@
-package com.demo.backend2.TestApi;
+package com.demo.backend2.api;
 
 import com.demo.backend2.exception.BaseException;
 import lombok.Data;

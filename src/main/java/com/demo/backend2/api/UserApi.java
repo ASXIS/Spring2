@@ -1,8 +1,8 @@
-package com.demo.backend2.TestApi;
+package com.demo.backend2.api;
 
-import com.demo.backend2.business.TestBusiness;
+import com.demo.backend2.business.UserBusiness;
+import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
-import com.demo.backend2.exception.UserException;
 import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.TestResponse;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/test")
-public class api {
+public class UserApi {
 
-    private final TestBusiness business;
+    private final UserBusiness business;
 
-    public api(TestBusiness business) {
+    public UserApi(UserBusiness business) {
         this.business = business;
     }
 
@@ -31,8 +31,8 @@ public class api {
 
     @PostMapping
     @RequestMapping("/register")
-    public ResponseEntity<String> register(@RequestBody MRegisterRequest request) throws BaseException {
-        String response = business.register(request);
+    public ResponseEntity<User> register(@RequestBody MRegisterRequest request) throws BaseException {
+        User response = business.register(request);
         return ResponseEntity.ok(response);
     }
 

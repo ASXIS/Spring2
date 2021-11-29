@@ -1,9 +1,12 @@
 package com.demo.backend2.business;
 
+import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.FileException;
 import com.demo.backend2.exception.UserException;
 import com.demo.backend2.model.MRegisterRequest;
+import com.demo.backend2.service.UserSevice;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,17 +16,18 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class TestBusiness {
-    public String register(MRegisterRequest request) throws BaseException {
-        if (request == null) {
-            throw UserException.requestNull();
-        }
+public class UserBusiness {
+    
+    private final UserSevice userSevice;
+    
+    public UserBusiness(UserSevice userSevice) {
+        this.userSevice = userSevice;
+    }
 
-        if (Objects.isNull(request.getEmail())) {
-            throw UserException.emailNull();
-        }
+    public User register(MRegisterRequest request) throws BaseException {
+        User user = userSevice.create(request.getEmail(), request.getPassword(), request.getName());
 
-        return "";
+        return user;
     }
 
     public String uploadProfilePicture(MultipartFile file) throws UserException {
