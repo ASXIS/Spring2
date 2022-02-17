@@ -7,16 +7,21 @@ import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.UserException;
 import com.demo.backend2.repository.UserRepository;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserSevice {
 
     private final UserRepository repository;
+
+    private final PasswordEncoder passwordEncoder;
     
-    public UserSevice(UserRepository repository){
+    public UserSevice(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     public User create(String email, String password, String name) throws BaseException{
         
@@ -47,7 +52,7 @@ public class UserSevice {
         
         User entity = new User();
         entity.setEmail(email);
-        entity.setPassword(password);
+        entity.setPassword(passwordEncoder.encode(password));
         entity.setName(name);
 
         return repository.save(entity);

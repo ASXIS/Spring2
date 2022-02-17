@@ -4,7 +4,9 @@ import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.FileException;
 import com.demo.backend2.exception.UserException;
+import com.demo.backend2.mapper.UserMapper;
 import com.demo.backend2.model.MRegisterRequest;
+import com.demo.backend2.model.MRegisterResponse;
 import com.demo.backend2.service.UserSevice;
 
 import org.springframework.stereotype.Service;
@@ -19,15 +21,20 @@ import java.util.List;
 public class UserBusiness {
     
     private final UserSevice userSevice;
+
+    private final UserMapper userMapper;
     
-    public UserBusiness(UserSevice userSevice) {
+    public UserBusiness(UserSevice userSevice, UserMapper userMapper) {
         this.userSevice = userSevice;
+        this.userMapper = userMapper;
     }
 
-    public User register(MRegisterRequest request) throws BaseException {
+
+    public MRegisterResponse register(MRegisterRequest request) throws BaseException {
         User user = userSevice.create(request.getEmail(), request.getPassword(), request.getName());
 
-        return user;
+        
+        return userMapper.toRegisterResponse(user);
     }
 
     public String uploadProfilePicture(MultipartFile file) throws UserException {
