@@ -5,6 +5,7 @@ import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.FileException;
 import com.demo.backend2.exception.UserException;
 import com.demo.backend2.mapper.UserMapper;
+import com.demo.backend2.model.MLoginRequest;
 import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.MRegisterResponse;
 import com.demo.backend2.service.UserSevice;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -27,6 +29,23 @@ public class UserBusiness {
     public UserBusiness(UserSevice userSevice, UserMapper userMapper) {
         this.userSevice = userSevice;
         this.userMapper = userMapper;
+    }
+
+    public String login(MLoginRequest request){
+        //validate request
+
+        //verify database
+        Optional<User> opt = userSevice.findByEmail(request.getEmail());
+        if(opt.isEmpty()){
+            //throw login fail, email not found
+
+        }
+
+        User user = opt.get();
+        if(!userSevice.matchPassword(request.getPassword(), user.getPassword())){
+            //throw login fail, password incorrect
+        }
+
     }
 
 

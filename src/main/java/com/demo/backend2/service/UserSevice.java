@@ -1,6 +1,7 @@
 package com.demo.backend2.service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
@@ -20,6 +21,14 @@ public class UserSevice {
     public UserSevice(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public Optional<User> findByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
+    public boolean matchPassword(String rawPassword, String encodedPassword){
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
 

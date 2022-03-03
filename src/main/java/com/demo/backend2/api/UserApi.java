@@ -3,6 +3,7 @@ package com.demo.backend2.api;
 import com.demo.backend2.business.UserBusiness;
 import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
+import com.demo.backend2.model.MLoginRequest;
 import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.MRegisterResponse;
 import com.demo.backend2.model.TestResponse;
@@ -21,14 +22,13 @@ public class UserApi {
         this.business = business;
     }
 
-    @GetMapping
-    public TestResponse test() {
-        TestResponse response = new TestResponse();
-        response.setFood("tomyum");
-        response.setName("frong");
-        return response;
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MLoginRequest request){
 
+        return "";
     }
+
+
 
     @PostMapping
     @RequestMapping("/register")
