@@ -10,6 +10,7 @@ import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.MRegisterResponse;
 import com.demo.backend2.service.UserSevice;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,20 +32,28 @@ public class UserBusiness {
         this.userMapper = userMapper;
     }
 
-    public String login(MLoginRequest request){
+    public String login(MLoginRequest request) throws BaseException{
         //validate request
 
         //verify database
         Optional<User> opt = userSevice.findByEmail(request.getEmail());
         if(opt.isEmpty()){
             //throw login fail, email not found
-
+            throw UserException.loginFailEmailNotFound();
         }
+
 
         User user = opt.get();
         if(!userSevice.matchPassword(request.getPassword(), user.getPassword())){
             //throw login fail, password incorrect
+            throw UserException.loginFailPasswordIncorrect();
         }
+
+        // TODO: generate JWT
+
+        String token = "JWT TO DO";
+
+        return token;
 
     }
 

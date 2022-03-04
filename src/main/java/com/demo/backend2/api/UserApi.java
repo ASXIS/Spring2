@@ -23,12 +23,10 @@ public class UserApi {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MLoginRequest request){
-
-        return "";
+    public ResponseEntity<String> login(@RequestBody MLoginRequest request) throws BaseException{
+        String response = business.login(request);
+        return ResponseEntity.ok(response);
     }
-
-
 
     @PostMapping
     @RequestMapping("/register")
