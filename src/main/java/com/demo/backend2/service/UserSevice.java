@@ -1,5 +1,6 @@
 package com.demo.backend2.service;
 
+import java.lang.StackWalker.Option;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,6 +26,25 @@ public class UserSevice {
 
     public Optional<User> findByEmail(String email){
         return repository.findByEmail(email);
+    }
+
+    public User update(User user){
+        return repository.save(user);
+    }
+
+    public User updateName(String id, String name) throws UserException{
+        Optional<User> opt = repository.findById(id);
+        if (opt.isEmpty()) {
+            throw UserException.notFound();
+        }
+        User user = opt.get();
+        user.setName(name);
+
+        return repository.save(user);
+    }
+
+    public void deleteById(String id) {
+        repository.deleteById(id);
     }
 
     public boolean matchPassword(String rawPassword, String encodedPassword){
