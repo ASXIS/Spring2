@@ -1,9 +1,11 @@
 package com.demo.backend2.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,4 +25,11 @@ public class User extends BaseEntity{
     private String name;
 
     private String civilId;
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Social social;
+
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses;
+
 }

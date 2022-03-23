@@ -1,5 +1,10 @@
 package com.demo.backend2.business;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.FileException;
@@ -10,14 +15,8 @@ import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.MRegisterResponse;
 import com.demo.backend2.service.UserSevice;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 
 @Service
