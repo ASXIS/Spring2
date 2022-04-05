@@ -32,9 +32,7 @@ public class SocialSevice {
         entity.setLine(line);
         entity.setInstagram(instagram);
         entity.setTiktok(tiktok);
-
-
-
+        
         return repository.save(entity);
     }
     

@@ -1,15 +1,17 @@
 package com.demo.backend2;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.demo.backend2.entity.Address;
 import com.demo.backend2.entity.Social;
 import com.demo.backend2.entity.User;
 import com.demo.backend2.exception.BaseException;
 import com.demo.backend2.exception.UserException;
+import com.demo.backend2.service.AddressSevice;
 import com.demo.backend2.service.SocialSevice;
 import com.demo.backend2.service.UserSevice;
 
-import org.checkerframework.checker.nullness.Opt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -27,6 +29,9 @@ class TestUserService {
 
 	@Autowired
 	private SocialSevice socialSevice;
+
+	@Autowired
+	private AddressSevice addressSevice;
 
 	@Order(1)
 	@Test
@@ -81,6 +86,27 @@ class TestUserService {
 
 	}
 
+	@Order(4)
+	@Test
+	void testCreateAddress() throws UserException {
+		Optional<User> opt = userSevice.findByEmail(TestCreateData.email);
+		Assertions.assertTrue(opt.isPresent());
+		
+		User user = opt.get();
+		List<Address> addresses = user.getAddresses();
+		Assertions.assertTrue(addresses.isEmpty());
+		Address address = addressSevice.create(
+			user,
+			AddressTestCreateData.line1, 
+			AddressTestCreateData.line2, 
+			AddressTestCreateData.zipcode
+		);
+
+		Assertions.assertNotNull(address);
+		Assertions.assertEquals(AddressTestCreateData.line1, address.getLine1());
+
+	}
+
 	@Order(9)
 	@Test
 	void testDelete() {
@@ -118,6 +144,15 @@ class TestUserService {
 	interface TestUpdateData {
 
 		String name = "sawsaw";
+	}
+
+	interface AddressTestCreateData{
+		String line1 = "assa";
+		
+		String line2 = "3343";
+
+		String zipcode = "54543";
+
 	}
 
 }

@@ -21,7 +21,7 @@ public class Address extends BaseEntity{
     private String line2;
 
     @Column(length = 120)
-    private String ziocode;
+    private String zipcode;
 
     
     @ManyToOne
