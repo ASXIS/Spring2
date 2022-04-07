@@ -104,6 +104,8 @@ class TestUserService {
 
 		Assertions.assertNotNull(address);
 		Assertions.assertEquals(AddressTestCreateData.line1, address.getLine1());
+		Assertions.assertEquals(AddressTestCreateData.line2, address.getLine2());
+		Assertions.assertEquals(AddressTestCreateData.zipcode, address.getZipcode());
 
 	}
 
