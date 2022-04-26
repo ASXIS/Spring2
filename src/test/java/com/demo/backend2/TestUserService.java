@@ -95,18 +95,24 @@ class TestUserService {
 		User user = opt.get();
 		List<Address> addresses = user.getAddresses();
 		Assertions.assertTrue(addresses.isEmpty());
+
+		createAddress(user, AddressTestCreateData.line1, AddressTestCreateData.line2, AddressTestCreateData.zipcode);
+		createAddress(user, AddressTestCreateData2.line1, AddressTestCreateData2.line2, AddressTestCreateData.zipcode);
+
+	}
+
+	private void createAddress(User user, String line1, String line2, String zipcode) {
 		Address address = addressSevice.create(
 			user,
-			AddressTestCreateData.line1, 
-			AddressTestCreateData.line2, 
-			AddressTestCreateData.zipcode
+			line1, 
+			line2, 
+			zipcode
 		);
 
 		Assertions.assertNotNull(address);
-		Assertions.assertEquals(AddressTestCreateData.line1, address.getLine1());
-		Assertions.assertEquals(AddressTestCreateData.line2, address.getLine2());
-		Assertions.assertEquals(AddressTestCreateData.zipcode, address.getZipcode());
-
+		Assertions.assertEquals(line1, address.getLine1());
+		Assertions.assertEquals(line2, address.getLine2());
+		Assertions.assertEquals(zipcode, address.getZipcode());
 	}
 
 	@Order(9)
@@ -115,11 +121,11 @@ class TestUserService {
 		Optional<User> opt = userSevice.findByEmail(TestCreateData.email);
 		Assertions.assertTrue(opt.isPresent());
 
-		User user = opt.get();
-		userSevice.deleteById(user.getId());
+		// User user = opt.get();
+		// userSevice.deleteById(user.getId());
 
-		Optional<User> optDelete = userSevice.findByEmail(TestCreateData.email);
-		Assertions.assertTrue(optDelete.isEmpty());
+		// Optional<User> optDelete = userSevice.findByEmail(TestCreateData.email);
+		// Assertions.assertTrue(optDelete.isEmpty());
 	}
 
 	interface TestCreateData {
@@ -154,6 +160,24 @@ class TestUserService {
 		String line2 = "3343";
 
 		String zipcode = "54543";
+
+	}
+
+	interface AddressTestCreateData2{
+		String line1 = "assa2";
+		
+		String line2 = "33432";
+
+		String zipcode = "545432";
+
+	}
+
+	interface AddressTestCreateData3{
+		String line1 = "assa3";
+		
+		String line2 = "33433";
+
+		String zipcode = "545433";
 
 	}
 
