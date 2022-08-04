@@ -121,11 +121,22 @@ class TestUserService {
 		Optional<User> opt = userSevice.findByEmail(TestCreateData.email);
 		Assertions.assertTrue(opt.isPresent());
 
-		// User user = opt.get();
-		// userSevice.deleteById(user.getId());
+		User user = opt.get();
 
-		// Optional<User> optDelete = userSevice.findByEmail(TestCreateData.email);
-		// Assertions.assertTrue(optDelete.isEmpty());
+		Social social = user.getSocial();
+
+		
+
+		Assertions.assertNotNull(social);
+		Assertions.assertEquals(SocialTestCreateData.facebook, social.getFacebook());
+
+		List<Address> addresses = user.getAddresses();
+		Assertions.assertFalse(addresses.isEmpty());
+		Assertions.assertEquals(2, addresses.size());
+		userSevice.deleteById(user.getId());
+
+		Optional<User> optDelete = userSevice.findByEmail(TestCreateData.email);
+		Assertions.assertTrue(optDelete.isEmpty());
 	}
 
 	interface TestCreateData {
