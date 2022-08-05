@@ -7,6 +7,7 @@ import com.demo.backend2.model.MRegisterRequest;
 import com.demo.backend2.model.MRegisterResponse;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +40,18 @@ public class UserApi {
     }
 
     @PostMapping
+    @RequestMapping("/upload-pic")
     public ResponseEntity<String> uploadProfilePicture(@RequestPart MultipartFile file) throws BaseException {
         String response = business.uploadProfilePicture(file);
         return ResponseEntity.ok(response);
     }
+    
+    @GetMapping
+    @RequestMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken() throws BaseException{
+        String response = business.refreshToken();
+        return ResponseEntity.ok(response);
+    }
+
 }
 

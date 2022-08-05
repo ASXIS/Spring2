@@ -1,8 +1,5 @@
 package com.demo.backend2.service;
 
-import java.security.Principal;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,19 +35,18 @@ public class TokenService {
 
     }
 
-    public boolean verify(String token) {
+    public DecodedJWT verify(String token) {
 
         try {
 
             JWTVerifier verifier = JWT.require(algorithm())
                     .withIssuer(issuer)
                     .build();
-            verifier.verify(token);
+            return verifier.verify(token);
 
-            return true;
         } catch (Exception e) {
 
-            return false;
+            return null;
         }
     }
 

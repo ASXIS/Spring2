@@ -34,6 +34,10 @@ public class UserException extends BaseException{
         return new UserException("create.name.null");
     }
 
+    public static UserException unAuthorize(){
+        return new UserException("unauthorize");
+    }
+
     // Login
 
     public static UserException loginFailEmailNotFound(){
